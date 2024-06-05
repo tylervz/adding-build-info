@@ -1,3 +1,7 @@
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
 plugins {
     id "groovy"
     id "org.grails.grails-web"
@@ -8,9 +12,10 @@ plugins {
     id "com.bertramlabs.asset-pipeline"
     id "application"
     id "eclipse"
+    id "org.ajoberstar.grgit" version "5.2.2"
 }
 
-group = "adding.build.info"
+group = "example.grails"
 
 repositories {
     mavenCentral()
@@ -68,11 +73,60 @@ dependencies {
 }
 
 application {
-    mainClass.set("adding.build.info.Application")
+    mainClass.set("example.grails.Application")
 }
 
 java {
     sourceCompatibility = JavaVersion.toVersion("11")
+}
+
+/**
+ * Add build info to the grails.build.info file.
+ */
+project.gradle.projectsEvaluated {
+    buildProperties.doLast {
+        // Find the right file
+        File grailsBuildInfoFile = it.outputs.files.files.find { File file ->
+            file.name == 'grails.build.info'
+        } as File
+        if (!grailsBuildInfoFile) {
+            return // No need to continue if the file is not there
+        }
+        Properties properties = new Properties()
+        // Read properties from the file
+        grailsBuildInfoFile.withInputStream { InputStream inputStream ->
+            properties.load(inputStream)
+        }
+        // Get the current date and time in UTC
+        ZonedDateTime now = ZonedDateTime.now(ZoneId.of("UTC"))
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+        // Add new properties from various sources
+        properties.setProperty('build.time', now.format(formatter)) // <1>
+        // Get a System property
+        properties.setProperty('build.java.version', System.getProperty('java.version'))
+        // Get the host name where the build was created
+        properties.setProperty('build.host', InetAddress.localHost.hostName)
+        // Add properties set by your CI (in this case CircleCI)
+        Map<String, String> env = System.getenv()
+        if (env.CIRCLE_BUILD_NUM) {
+            properties.setProperty('build.number', env.CIRCLE_BUILD_NUM) // <2>
+            properties.setProperty('build.git.revision', env.CIRCLE_SHA1)
+            properties.setProperty('build.git.branch', env.CIRCLE_BRANCH)
+        } else {
+            // Get the commit id (aka hash) of HEAD
+            String gitCommitId = grgit.head().id
+            properties.setProperty('build.git.revision', gitCommitId)
+            properties.setProperty('build.git.branch', grgit.branch.current().getName())
+        }
+        // Set more properties with Git commit information
+        properties.setProperty('build.git.commit.user.email', grgit.head().author.email)
+        properties.setProperty('build.git.commit.user.name', grgit.head().author.name)
+        properties.setProperty('build.git.commit.message.full', grgit.head().fullMessage)
+        // Write the properties back to the file
+        grailsBuildInfoFile.withOutputStream { OutputStream outputStream ->
+            properties.store(outputStream, null)
+        }
+    }
 }
 
 tasks.withType(Test) {

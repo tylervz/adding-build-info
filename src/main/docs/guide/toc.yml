@@ -1,8 +1,11 @@
-gettingStarted: 
+gettingStarted:
   title: Getting Started
   requirements: What you will need
   howto: How to complete the guide
 writingTheApp:
   title: Writing the Application
+  theBuildPropertiesGradleTask: The buildProperties Gradle Task
+  addingMoreInformationToGrails.Build.Info: Adding More Information to grails.build.info
+  retrievingTheBuildInformation: Retrieving the Build Information
 runningTheApp:
   title: Running the Application

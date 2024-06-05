@@ -1,0 +1,29 @@
+With the Gradle build system, it is possible to hook into the build process and execute our own code.
+In this case, we want Gradle to complete writing the ``build/resources/main/META-INF/grails.build.info`` file,
+and then we want to add additional properties to the file.
+
+To accomplish this, first, import the following ``java.time`` classes and add the `grgit` Gradle plugin in `build.gradle`.
+
+[source, groovy]
+.build.gradle
+----
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
+
+plugins {
+...
+    id "org.ajoberstar.grgit" version "5.2.2"
+}
+----
+
+Next, add the following snippet to ``build.gradle``:
+
+[source, groovy]
+.build.gradle
+----
+include::{sourceDir}/build.gradle[lines=83..130]
+----
+
+<1> set ``build.time`` to the time that the build was executed.
+<2> read an environment variable set by your build server (CircleCI in the above example)

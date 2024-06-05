@@ -70,6 +70,19 @@
                     </g:each>
                 </ul>
             </div>
+
+            <table>
+                <thead>
+                    <tr><th>Name</th><th>Value</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Build time</td><td><g:meta name="build.time"></g:meta></td></tr>
+                    <tr><td>Build Java version</td><td><g:meta name="build.java.version"></g:meta></td></tr>
+                    <tr><td>Build host</td><td><g:meta name="build.host"></g:meta></td></tr>
+                    <tr><td>Build Git commit hash</td><td><g:meta name="build.git.revision"></g:meta></td></tr>
+                    <tr><td>Build Git branch</td><td><g:meta name="build.git.branch"></g:meta></td></tr>
+                </tbody>
+            </table>
         </section>
     </div>
 </div>

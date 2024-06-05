@@ -7,4 +7,3 @@ asciidoctorj {
 }
 
 apply from:"https://raw.githubusercontent.com/grails/grails-guides/6.0.x/gradle/guide-build.gradle"
-

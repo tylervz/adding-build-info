@@ -10,7 +10,7 @@ plugins {
     id "eclipse"
 }
 
-group = "adding.build.info"
+group = "example.grails"
 
 repositories {
     mavenCentral()
@@ -68,7 +68,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("adding.build.info.Application")
+    mainClass.set("example.grails.Application")
 }
 
 java {

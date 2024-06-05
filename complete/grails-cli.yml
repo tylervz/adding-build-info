@@ -1,5 +1,5 @@
 applicationType: web
-defaultPackage: adding.build.info
+defaultPackage: example.grails
 testFramework: spock
 sourceLanguage: groovy
 buildTool: gradle

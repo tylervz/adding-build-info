@@ -1,1 +1,18 @@
 include::{commondir}/common-runapp.adoc[]
+
+When you visit http://localhost:8080, you will notice that all the properites
+shown on the `grails-app/views/index.gsp` page are blank.
+
+.Screenshot of index page with blank build properties
+image::index-screenshot.png[]
+
+And when you visit http://localhost:8080/metadata, you will notice that much of the JSON data returned is `null`.
+
+This is because those properties only get set when the application is built into a runnable
+`.war` file or `.jar` file and then deployed.
+
+Run the `./gradlew assemble` command to generate two `.war` files and a `.jar` file in the `./build/libs` directory.
+One will be named something like `adding-build-info-0.1.war` and the other `adding-build-info-0.1-plain.war`.
+The `-plain.war` is NOT a standalone runnable war file; it is used for Servlet container deployment, such as Tomcat.
+
+Once you deploy one of those files, you will be able to see the additional build informtion that is now being stored in `grails.build.info`.

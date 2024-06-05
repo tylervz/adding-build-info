@@ -1,0 +1,44 @@
+Now that we have this build information captured in ``grails.build.info``, we can show it in our application in a ``.gsp`` page.
+
+Edit `grails-app/views/index.gsp`, the GSP that is currently rendered when you visit the home page `/` and add the next snippet:
+
+[source, groovy]
+.grails-app/views/index.gsp
+----
+...
+<div id="content" role="main">
+    ...
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Build time</td><td><g:meta name="build.time"></g:meta></td></tr>
+            <tr><td>Build Java version</td><td><g:meta name="build.java.version"></g:meta></td></tr>
+            <tr><td>Build host</td><td><g:meta name="build.host"></g:meta></td></tr>
+            <tr><td>Build Git commit hash</td><td><g:meta name="build.git.revision"></g:meta></td></tr>
+            <tr><td>Build Git branch</td><td><g:meta name="build.git.branch"></g:meta></td></tr>
+        </tbody>
+    </table>
+</div>
+...
+----
+
+Additionally, we can create a Grails service to fetch the information from `grails.build.info`
+and a corresponding controller to display it in JSON.
+
+Create a ``grails-app/services/example/grails/MetadataService.groovy`` file:
+
+[source, groovy]
+.grails-app/services/example/grails/MetadataService.groovy
+----
+include::{sourceDir}/grails-app/services/example/grails/MetadataService.groovy[]
+----
+
+And then create a corresponding controller: ``grails-app/controllers/example/grails/MetadataController.groovy``
+
+[source, groovy]
+.grails-app/controllers/example/grails/MetadataController.groovy
+----
+include::{sourceDir}/grails-app/controllers/example/grails/MetadataController.groovy[]
+----

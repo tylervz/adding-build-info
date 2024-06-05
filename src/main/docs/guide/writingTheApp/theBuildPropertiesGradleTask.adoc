@@ -1,0 +1,19 @@
+When you build/run your Grails applications, one of tasks that Gradle always executes is ``buildProperties``.
+This task takes a small set of build information from your project and places it in a file, which the Grails ``Metadata`` class later reads.
+This file is located in the ``META-INF`` directory and is named ``grails.build.info``.
+
+At build time, you can find this file at ``build/resources/main/META-INF/grails.build.info``. The contents of this file looks like:
+
+.grails.build.info
+----
+#Wed, 05 Jun 2024 16:06:24 -0400
+
+info.app.version=0.1
+info.app.name=metadata
+grails.env=production
+info.app.grailsVersion=6.2.0
+----
+
+This info primarily comes from ``build.gradle`` and ``gradle.properties``
+(the curious can check out the https://github.com/grails/grails-gradle-plugin/blob/c640157b5eaab309577981694c9e282aeab678c8/src/main/groovy/org/grails/gradle/plugin/core/GrailsGradlePlugin.groovy#L221[grails-gradle-plugin source code]).
+This file will be part of your final application when you build your ``.jar`` or ``.war`` file.
