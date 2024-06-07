@@ -13,7 +13,7 @@ Edit `grails-app/views/index.gsp`, the GSP that is currently rendered when you v
             <tr><th>Name</th><th>Value</th></tr>
         </thead>
         <tbody>
-            <tr><td>Build time</td><td><g:meta name="build.time"></g:meta></td></tr>
+            <tr><td>Build time</td><td><g:meta name="build.time"></g:meta></td></tr> // <1>
             <tr><td>Build Java version</td><td><g:meta name="build.java.version"></g:meta></td></tr>
             <tr><td>Build host</td><td><g:meta name="build.host"></g:meta></td></tr>
             <tr><td>Build Git commit hash</td><td><g:meta name="build.git.revision"></g:meta></td></tr>
@@ -23,6 +23,10 @@ Edit `grails-app/views/index.gsp`, the GSP that is currently rendered when you v
 </div>
 ...
 ----
+
+<1> retrieve build information with the ``meta`` tag
+
+'''
 
 Additionally, we can create a Grails service to fetch the information from `grails.build.info`
 and a corresponding controller to display it in JSON.
