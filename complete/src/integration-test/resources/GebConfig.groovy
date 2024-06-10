@@ -20,7 +20,7 @@ environments {
     chromeHeadless {
         driver = {
             ChromeOptions o = new ChromeOptions()
-            o.addArguments('headless')
+            o.addArguments('--headless=new')
             new ChromeDriver(o)
         }
     }
