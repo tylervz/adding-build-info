@@ -7,5 +7,7 @@ writingTheApp:
   theBuildPropertiesGradleTask: The buildProperties Gradle Task
   addingMoreInformationToGrails.Build.Info: Adding More Information to grails.build.info
   retrievingTheBuildInformation: Retrieving the Build Information
+testingTheApp:
+  title: Testing the Application
 runningTheApp:
   title: Running the Application

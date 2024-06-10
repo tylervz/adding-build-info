@@ -1,4 +1,8 @@
 In this guide we are going to add properties to the ``grails.build.info`` file
 and then retrieve that build environment information via the running application.
 
+Having access to this information about the build environment will give you an easy way
+to identify when the build artifact was generated, how the build artifact was generated,
+and the Git commit info will tell you what specific code is running.
+
 Note: this guide was adapted from a https://grails.org/blog/2017-04-02.html[blog post] written by Søren Berg Glasius and Colin Harrington.

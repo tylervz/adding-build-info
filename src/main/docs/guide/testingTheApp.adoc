@@ -1,0 +1,22 @@
+Now we can create an integration test with the Micronaut HTTP Client to verify the `MetadataController` returns JSON
+and ensure it continues to do so in the future as the source code changes:
+
+[source,groovy]
+.src/integration-test/groovy/example/grails/MetadataControllerIntegrationSpec.groovy
+----
+include::{sourceDir}/src/integration-test/groovy/example/grails/MetadataControllerIntegrationSpec.groovy[]
+----
+
+<1> Initialize the client once for all tests. Give it a URL with `serverPort` which is the assigned port of the integration test.
+<2> Issue a `GET`. The expected body type will be a String.
+<3> Convert the JSON String response body into a Map.
+<4> Verify the status and body elements of the JSON.
+
+'''
+
+Test the application with
+
+----
+./gradlew check
+open build/reports/tests/index.html
+----
