@@ -31,6 +31,9 @@ class MetadataControllerIntegrationSpec extends Specification {
         then: "we get a success status"
         resp.status == HttpStatus.OK // <4>
         json != null
-        json.applicationName == "adding-build-info"
+        json.grailsVersion == "6.2.0"
+        json.containsKey("applicationBuildTS")
+        json.containsKey("buildGitRevision")
+        !json.containsKey("foo")
     }
 }
