@@ -17,7 +17,7 @@ class ExampleGrailsSpec extends GebSpec {
             go '/'
 
         then:"The title is correct"
-            title == "Welcome to Grails"
+            title == "Welcome to Grailz"
     }
 
 }
